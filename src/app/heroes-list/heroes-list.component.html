@@ -1,0 +1,39 @@
+<div class="container">
+    @let heroesList = (heroesResult$ | async);
+    <!-- heroesResult$ es un observable, lo que significa que no contiene los datos directamente, sino que emite valores de datos de forma asincrónica con el tiempo.
+El operador async se utiliza para subscribirse automáticamente al observable y obtener su valor más reciente. Este valor es lo que se asigna a heroesList.
+Al hacer esto al principio de la plantilla, te aseguras de que el resultado del observable se resuelve y se almacena en heroesList, lo que facilita el trabajo con los datos resueltos a lo largo de la plantilla. -->
+
+    @if(!heroesList?.length){
+    <p>loading...</p>
+    }@else {
+    <table class="table table-secondary table-striped">
+        <caption>
+            Super Heroes of the world 2024
+        </caption>
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @for(hero of heroesList; track hero.id; let i = $index){
+            <tr (click)="onHeroClicked(hero.id)">
+                <td scope="row">{{ i + 1 }}</td>
+                <td>{{ hero.name }}</td>
+
+            </tr>
+            }
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">Heroes count: {{ (heroesResult$ | async)?.length }}</td>
+            </tr>
+        </tfoot>
+    </table>
+    }
+</div>

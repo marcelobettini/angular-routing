@@ -1,0 +1,8 @@
+@let hero = (hero$ | async);
+@if(!hero){
+<p>Loading...</p>
+}@else {
+<p>{{hero.name}}</p>
+<p>{{hero.real_name}}</p>
+<p>{{hero.place_of_birth}}</p>
+}
